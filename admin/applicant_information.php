@@ -11,10 +11,24 @@ if (!$id) {
     exit;
 }
 
+$comments = '';
+
 $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where application_id = :application_id ');
 $statement->bindValue(':application_id', $id);
 $statement->execute();
 $row = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+    $comments = $_POST["comments"];
+
+    $statement = $pdo->prepare("UPDATE tbl_applicationform set comments = :comments, status = 'decline' WHERE application_id = :id");
+    $statement->bindValue(':id', $id);
+    $statement->bindValue(':comments', $comments);
+    $statement->execute();
+}
+
+header("Location:index.php")
+
 
 ?>
 
@@ -115,7 +129,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <div class="col-sm-12 col-xl-12">
                             <div class="bg-light rounded h-100 p-4">
                                 <h6 class="mb-4">Application Form</h6>
-                                <form method="POST" action="checking.php" enctype="multipart/form-data">
+                                <form method="POST"  enctype="multipart/form-data">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">FullName:</span>
                                         <input type="text" value="<?php echo $row[0]["fullname"] ?>" class="form-control" disabled>
@@ -219,9 +233,14 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         <h5 class="mb-1"></h5>
                                         <a class="btn btn-primary m-2" href="imageview.php?image=<?php echo $row[0]["birthcert"] ?>&id=<?php echo $row[0]["application_id"] ?>" >View Birth Certificate</a>
                                     </div>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                            id="floatingTextarea" name="comments" style="height: 150px;" required></textarea>
+                                        <label for="floatingTextarea">Comments</label>
+                                    </div>
                                     <div class="testimonial-item text-center">
                                         <a class="btn btn-primary m-2" href="approve.php?id=<?php echo $row[0]["application_id"] ?>&user_id=<?php echo $row[0]["user_id"] ?>" >Approve</a>
-                                        <a class="btn btn-secondary m-2" href="reject.php?id=<?php echo $row[0]["application_id"] ?>" >Reject</a>
+                                        <button type="sumbit" class="btn btn-secondary m-2" href="reject.php?id=<?php echo $row[0]["application_id"] ?>" >Reject</button>
                                     </div>
                                 </form>
                             </div>

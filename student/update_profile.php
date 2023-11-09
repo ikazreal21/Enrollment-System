@@ -2,6 +2,7 @@
 session_start();
 
 require_once '../database.php';
+require_once '../randomstring.php';
 
 $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where user_id = :user_id');
 $statement->bindValue(':user_id', $_SESSION["user_id"]);
@@ -9,6 +10,54 @@ $statement->execute();
 $items = $statement->fetchAll(PDO::FETCH_ASSOC);
 $row = $statement->rowCount();
 
+
+$fullname = '';
+$age = 0;
+$birthdate = '';
+$occupation = '';
+$email = '';
+$contactnum = '';
+$picture = '';
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $fullname = ucwords($_POST['fullname']);
+    $age = $_POST['age'];
+    $birthdate = $_POST['birthdate'];
+    $occupation = $_POST['occupation'];
+    $email = $_POST['email'];
+    $contactnum = $_POST['contactnum'];
+
+
+    if (!is_dir('../upload/img')) {
+        mkdir('../inventory/img');
+    }
+
+    if (empty($errors)) {
+        $picture = $_FILES['picture'];
+        $imagePath3 = '';
+
+        if ($picture) {
+            $imagePath3 = '../upload/picture/'.randomString(8, 1).'/'.$picture['name'];
+            mkdir(dirname($imagePath3));
+            move_uploaded_file($picture['tmp_name'], $imagePath3);
+        }
+
+        $statement = $pdo->prepare("UPDATE tbl_applicationform set fullname = :fullname, age = :age, birthdate = :birthdate, occupation = :occupation, email = :email, contactnum = :contactnum, picture = :picture WHERE user_id = :user_id");
+
+        $statement->bindValue(':fullname', $fullname);
+        $statement->bindValue(':age', $age);
+        $statement->bindValue(':birthdate', $birthdate);
+        $statement->bindValue(':occupation', $occupation);
+        $statement->bindValue(':email', $email);
+        $statement->bindValue(':contactnum', $contactnum);
+        $statement->bindValue(':picture', $imagePath3);
+        $statement->bindValue(':user_id', $_SESSION["user_id"]);
+        $statement->execute();
+        header('Location: profile.php');
+    }
+}
 
 ?>
 
@@ -114,32 +163,34 @@ $row = $statement->rowCount();
                         <div class="col-sm-12 col-xl-12">
                             <div class="bg-light rounded h-100 p-4">
                                 <h6 class="mb-4">Profile</h6>
-                                <div class="testimonial-item text-center">
-                                        <img class="img-fluid rounded-circle mx-auto mb-4" src="<?php echo $items[0]["picture"] ?>" style="width: 100px; height: 100px;">
-                                </div>
-                                <form method="POST" action="checking.php" enctype="multipart/form-data">
+                                <form method="POST" enctype="multipart/form-data">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">FullName:</span>
-                                        <input type="text" value="<?php echo $items[0]["fullname"] ?>" class="form-control" disabled>
+                                        <input type="text" name="fullname" value="<?php echo $items[0]["fullname"] ?>" class="form-control" required>
 
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Age:</span>
-                                        <input type="number" min="1" value="<?php echo $items[0]["age"] ?>" class="form-control" disabled>
+                                        <input type="number" min="1" name="age" value="<?php echo $items[0]["age"] ?>" class="form-control" required>
                                         <span class="input-group-text">Birth Date:</span>
-                                        <input type="date" value="<?php echo date($items[0]["birthdate"]) ?>" class="form-control" disabled>
+                                        <input type="date" name="birthdate" value="<?php echo date($items[0]["birthdate"]) ?>" class="form-control" required>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Occupation:</span>
-                                        <input type="text" value="<?php echo $items[0]["occupation"] ?>" class="form-control" disabled>
+                                        <input type="text" name="occupation" value="<?php echo $items[0]["occupation"] ?>" class="form-control" required>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Email:</span>
-                                        <input type="email" value="<?php echo $items[0]["email"] ?>" class="form-control" disabled>
+                                        <input type="email" name="email" value="<?php echo $items[0]["email"] ?>" class="form-control" required>
                                         <span class="input-group-text">Contact Number:</span>
-                                        <input type="number" value="<?php echo $items[0]["contactnum"] ?>" min="0" class="form-control" disabled>
+                                        <input type="number" name="contactnum" value="<?php echo $items[0]["contactnum"] ?>" min="0" class="form-control" required>
                                     </div>
-                                    <a href="update_profile.php" class="btn btn-primary">Update</a>
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">1 X 1 Formal Picture</label>
+                                        <input class="form-control" name="picture" type="file" accept="image/*" id="formFile">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
                                 </form>
                             </div>
                         </div>

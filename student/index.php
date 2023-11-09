@@ -8,6 +8,7 @@ $is_fillup = false;
 $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where user_id = :user_id');
 $statement->bindValue(':user_id', $_SESSION["user_id"]);
 $statement->execute();
+$items = $statement->fetchAll(PDO::FETCH_ASSOC);
 $row = $statement->rowCount();
 
 if ($row > 0) {
@@ -232,6 +233,17 @@ if ($row > 0) {
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                 </form>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <?php elseif ($items[0]["status"] == "decline"): ?>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                        <div class="col-md-6 text-center">
+                            <h3>Your Application is Decline</h3>
+                            <h5>Remarks</h5>
+                            <p><?php echo ucfirst($items[0]["comments"]) ?></p>
+                            <a href="delete.php?id=<?php echo $items[0]["application_id"] ?>" class="btn btn-primary">Submit Another Form?</a>
                         </div>
                     </div>
                 </div>

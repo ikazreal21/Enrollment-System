@@ -101,14 +101,6 @@ try {
                             <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
                             <label for="floatingPassword">Password</label>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                                <label class="form-check-label" for="exampleCheck1">Terms and Conditions</label>
-                            </div>
-                            <!-- <a href="">Forgot Password</a> -->
-                        </div>
-
 				        <input type="submit" name="login" class="btn btn-primary py-3 w-100 mb-4" value="Login"/>
                         <!-- <button type="submit" name="login" class="btn btn-primary py-3 w-100 mb-4">Login</button> -->
                         <p class="text-center mb-0">Don't have an Account? <a href="register.php">Register</a></p>

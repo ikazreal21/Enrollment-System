@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $picture = $_FILES['picture'];
         $birthcert = $_FILES['birthcert'];
         $imagePath1 = '';
-        $imagePath2 = '';
+        $imagePath2 = ''; 
         $imagePath3 = '';
         $imagePath4 = '';
 
