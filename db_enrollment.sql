@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2023 at 05:05 AM
+-- Generation Time: Nov 09, 2023 at 06:45 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -54,15 +54,16 @@ CREATE TABLE `tbl_applicationform` (
   `valid_id` varchar(255) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL,
   `birthcert` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `comments` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_applicationform`
 --
 
-INSERT INTO `tbl_applicationform` (`application_id`, `fullname`, `username`, `user_id`, `age`, `birthdate`, `occupation`, `email`, `contactnum`, `faname`, `faoccu`, `maname`, `maoccu`, `spaname`, `spaoccu`, `tertiary`, `tergraduate`, `secondary`, `secgraduate`, `elementary`, `elemgraduate`, `level`, `certification`, `valid_id`, `picture`, `birthcert`, `status`) VALUES
-(3, 'Joaquin Zaki Soriano', 'zaki', '1', 22, '2023-11-08', 'Programmer1', 'joaquinzaki21@gmail.com', '09695191665', 'Zaki1', 'Programmer2', 'Zaki2', 'Programmer3', 'Zaki3', 'Programmer4', 'School1', '2001', 'School2', '2002', 'School3', '2003', 'N4', '../upload/certification/4weNyaUE/400008709_2676119205876294_740727664581397235_n.jpg', '../upload/valid_id/P4vTXGjT/400008709_2676119205876294_740727664581397235_n.jpg', '../upload/picture/weHdmHmn/280777623_767453950948059_4236730944709457713_n.jpg', '../upload/birthcert/1KiEP8rv/400008709_2676119205876294_740727664581397235_n.jpg', 'approve');
+INSERT INTO `tbl_applicationform` (`application_id`, `fullname`, `username`, `user_id`, `age`, `birthdate`, `occupation`, `email`, `contactnum`, `faname`, `faoccu`, `maname`, `maoccu`, `spaname`, `spaoccu`, `tertiary`, `tergraduate`, `secondary`, `secgraduate`, `elementary`, `elemgraduate`, `level`, `certification`, `valid_id`, `picture`, `birthcert`, `status`, `comments`) VALUES
+(3, 'Joaquin Zaki Soriano', 'zaki', '1', 22, '2023-11-08', 'Programmer', 'joaquinzaki21@gmail.com', '09695191665', 'Zaki1', 'Programmer2', 'Zaki2', 'Programmer3', 'Zaki3', 'Programmer4', 'School1', '2001', 'School2', '2002', 'School3', '2003', 'N4', '../upload/certification/4weNyaUE/400008709_2676119205876294_740727664581397235_n.jpg', '../upload/valid_id/P4vTXGjT/400008709_2676119205876294_740727664581397235_n.jpg', '../upload/picture/2orNTOVO/wp8377232-pointing-wallpapers.jpg', '../upload/birthcert/1KiEP8rv/400008709_2676119205876294_740727664581397235_n.jpg', 'approve', '');
 
 -- --------------------------------------------------------
 
@@ -112,7 +113,7 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT for table `tbl_applicationform`
 --
 ALTER TABLE `tbl_applicationform`
-  MODIFY `application_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `application_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
