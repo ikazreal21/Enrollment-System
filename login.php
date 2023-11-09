@@ -56,7 +56,7 @@ try {
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet"> -->
-    
+
     <!-- Icon Font Stylesheet -->
     <link href="assets/css/icons/css/all.min.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
@@ -66,7 +66,7 @@ try {
     <link href="assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style2.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
