@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $pdo->lastInsertId();
 
         $statement = $pdo->prepare("INSERT INTO tbl_faculty (first_name, last_name, email, contactnum, user_id)
-                VALUES (:first_name, :last_name, :email, :user_id)"
+                VALUES (:first_name, :last_name, :contactnum, :email, :user_id)"
         );
 
         $statement->bindValue(':first_name', $first_name);
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindValue(':user_id', $id);
         $statement->execute();
 
-        header('Location: index.php');
+        header('Location: faculty.php');
     }
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2023 at 06:45 PM
+-- Generation Time: Dec 21, 2023 at 12:20 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_applicationform` (
   `application_id` int(255) NOT NULL,
+  `student_id` varchar(255) DEFAULT NULL,
   `fullname` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `user_id` varchar(255) DEFAULT NULL,
@@ -55,15 +56,34 @@ CREATE TABLE `tbl_applicationform` (
   `picture` varchar(255) DEFAULT NULL,
   `birthcert` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL,
-  `comments` varchar(255) NOT NULL
+  `comments` varchar(255) NOT NULL,
+  `payment_image` varchar(255) DEFAULT NULL,
+  `payment` varchar(255) DEFAULT NULL,
+  `schedule` varchar(255) DEFAULT NULL,
+  `date_enrolled` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_faculty`
+--
+
+CREATE TABLE `tbl_faculty` (
+  `faculty_id` int(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `contactnum` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_applicationform`
+-- Dumping data for table `tbl_faculty`
 --
 
-INSERT INTO `tbl_applicationform` (`application_id`, `fullname`, `username`, `user_id`, `age`, `birthdate`, `occupation`, `email`, `contactnum`, `faname`, `faoccu`, `maname`, `maoccu`, `spaname`, `spaoccu`, `tertiary`, `tergraduate`, `secondary`, `secgraduate`, `elementary`, `elemgraduate`, `level`, `certification`, `valid_id`, `picture`, `birthcert`, `status`, `comments`) VALUES
-(3, 'Joaquin Zaki Soriano', 'zaki', '1', 22, '2023-11-08', 'Programmer', 'joaquinzaki21@gmail.com', '09695191665', 'Zaki1', 'Programmer2', 'Zaki2', 'Programmer3', 'Zaki3', 'Programmer4', 'School1', '2001', 'School2', '2002', 'School3', '2003', 'N4', '../upload/certification/4weNyaUE/400008709_2676119205876294_740727664581397235_n.jpg', '../upload/valid_id/P4vTXGjT/400008709_2676119205876294_740727664581397235_n.jpg', '../upload/picture/2orNTOVO/wp8377232-pointing-wallpapers.jpg', '../upload/birthcert/1KiEP8rv/400008709_2676119205876294_740727664581397235_n.jpg', 'approve', '');
+INSERT INTO `tbl_faculty` (`faculty_id`, `first_name`, `last_name`, `email`, `contactnum`, `user_id`) VALUES
+(2, 'Test', 'Test1', '09695191665', 'test@test.com', '7');
 
 -- --------------------------------------------------------
 
@@ -85,9 +105,7 @@ CREATE TABLE `tbl_login` (
 --
 
 INSERT INTO `tbl_login` (`user_id`, `username`, `email`, `password`, `roles`, `status`) VALUES
-(1, 'zaki', 'zakisoriano21@gmail.com', '2001210809', 'student', 'active'),
-(2, 'admin', 'admin@admin.com', 'adminadmin', 'admin', 'active'),
-(3, 'joaquin', 'joaquinzaki21@gmail.com', '2001210809', 'student', 'pending');
+(2, 'admin', 'admin@admin.com', 'adminadmin', 'admin', 'active');
 
 --
 -- Indexes for dumped tables
@@ -98,6 +116,12 @@ INSERT INTO `tbl_login` (`user_id`, `username`, `email`, `password`, `roles`, `s
 --
 ALTER TABLE `tbl_applicationform`
   ADD PRIMARY KEY (`application_id`);
+
+--
+-- Indexes for table `tbl_faculty`
+--
+ALTER TABLE `tbl_faculty`
+  ADD PRIMARY KEY (`faculty_id`);
 
 --
 -- Indexes for table `tbl_login`
@@ -113,13 +137,19 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT for table `tbl_applicationform`
 --
 ALTER TABLE `tbl_applicationform`
-  MODIFY `application_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `application_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tbl_faculty`
+--
+ALTER TABLE `tbl_faculty`
+  MODIFY `faculty_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
 --
 ALTER TABLE `tbl_login`
-  MODIFY `user_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

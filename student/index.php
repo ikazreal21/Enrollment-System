@@ -126,7 +126,7 @@ if ($row > 0) {
                 </div>
             </nav>
             <!-- Navbar End -->
-            <?php if ($_SESSION["status"] == "pending"): ?>
+            <?php if ($items[0]["status"] == "pending"): ?>
                 <?php if (!$is_fillup): ?>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
@@ -248,27 +248,19 @@ if ($row > 0) {
                         </div>
                     </div>
                 </div>
-                <?php elseif ($items[0]["status"] == "decline"): ?>
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                        <div class="col-md-6 text-center">
-                            <h3>Your Application is Decline</h3>
-                            <h5>Remarks</h5>
-                            <p><?php echo ucfirst($items[0]["comments"]) ?></p>
-                            <a href="delete.php?id=<?php echo $items[0]["application_id"] ?>" class="btn btn-primary">Submit Another Form?</a>
-                        </div>
-                    </div>
-                </div>
-                <?php else: ?>
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                        <div class="col-md-6 text-center">
-                            <h3>Your Application is Pending</h3>
-                        </div>
-                    </div>
-                </div>
                 <?php endif;?>
-            <?php elseif ($_SESSION["status"] == "active" && !$is_paid): ?>
+            <?php elseif ($items[0]["status"] == "decline"): ?>
+            <div class="container-fluid pt-4 px-4">
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                    <div class="col-md-6 text-center">
+                        <h3>Your Application is Decline</h3>
+                        <h5>Remarks</h5>
+                        <p><?php echo ucfirst($items[0]["comments"]) ?></p>
+                        <a href="delete.php?id=<?php echo $items[0]["application_id"] ?>" class="btn btn-primary">Submit Another Form?</a>
+                    </div>
+                </div>
+            </div>
+            <?php elseif ($items[0]["status"] == "approve" && !$is_paid &&  !$items[0]["payment"] == "pending"): ?>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-12">
@@ -292,7 +284,7 @@ if ($row > 0) {
                         </div>
                     </div>
                 </div>
-            <?php elseif ($_SESSION["status"] == "active" && $is_paid): ?>
+            <?php elseif ($items[0]["status"] == "approve" && $is_paid): ?>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                         <div class="col-md-6 text-center">
@@ -301,6 +293,22 @@ if ($row > 0) {
                         </div>
                     </div>
                 </div>
+            <?php elseif ($items[0]["payment"] == "pending" && !$is_paid): ?>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                        <div class="col-md-6 text-center">
+                            <h3>Your Payment Verification  is Pending</h3>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+            <div class="container-fluid pt-4 px-4">
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                    <div class="col-md-6 text-center">
+                        <h3>Your Application is Pending</h3>
+                    </div>
+                </div>
+            </div>
             <?php endif;?>
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
