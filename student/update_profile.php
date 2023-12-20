@@ -10,7 +10,6 @@ $statement->execute();
 $items = $statement->fetchAll(PDO::FETCH_ASSOC);
 $row = $statement->rowCount();
 
-
 $fullname = '';
 $age = 0;
 $birthdate = '';
@@ -18,7 +17,6 @@ $occupation = '';
 $email = '';
 $contactnum = '';
 $picture = '';
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -29,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $contactnum = $_POST['contactnum'];
 
-
     if (!is_dir('../upload/img')) {
         mkdir('../inventory/img');
     }
@@ -39,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagePath3 = '';
 
         if ($picture) {
-            $imagePath3 = '../upload/picture/'.randomString(8, 1).'/'.$picture['name'];
+            $imagePath3 = '../upload/picture/' . randomString(8, 1) . '/' . $picture['name'];
             mkdir(dirname($imagePath3));
             move_uploaded_file($picture['tmp_name'], $imagePath3);
         }
@@ -110,12 +107,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">AEMPS</h3>
                 </a>
                 <div class="ms-4 mb-4" style="text-align:center">
                     <div class="position-relative" style="text-align:center">
-                        <img class="rounded-circle" src="../assets/img/logo.jpg" alt="" style="width: 200px; height: 200px;">
+                        <img class="rounded-circle" src="../assets/img/logo.png" alt="" style="width: 200px; height: 200px;">
                     </div>
                 </div>
                 <div class="navbar-nav w-100">

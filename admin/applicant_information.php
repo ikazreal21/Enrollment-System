@@ -18,17 +18,15 @@ $statement->bindValue(':application_id', $id);
 $statement->execute();
 $row = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comments = $_POST["comments"];
 
     $statement = $pdo->prepare("UPDATE tbl_applicationform set comments = :comments, status = 'decline' WHERE application_id = :id");
     $statement->bindValue(':id', $id);
     $statement->bindValue(':comments', $comments);
     $statement->execute();
+    header("Location:index.php");
 }
-
-header("Location:index.php")
-
 
 ?>
 
@@ -85,14 +83,15 @@ header("Location:index.php")
                 </a>
                 <div class="ms-4 mb-4 text-center">
                     <div class="position-relative" >
-                        <img class="rounded-circle rounded-circle mx-auto mb-4" src="../assets/img/logo.jpg" alt="" style="width: 200px; height: 200px;">
+                        <img class="rounded-circle rounded-circle mx-auto mb-4" src="../assets/img/logo.png" alt="" style="width: 200px; height: 200px;">
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Enrolee</a>
                     <a href="records.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Records</a>
                     <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Remarks</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students</a>
+                    <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
                 </div>
             </nav>
         </div>

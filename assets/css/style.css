@@ -275,3 +275,12 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+
+.back-img {
+    background-image: url("../img/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(255,255,255,0.8);
+    background-blend-mode: soft-light;
+}

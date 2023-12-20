@@ -15,6 +15,18 @@ if ($row > 0) {
     $is_fillup = true;
 }
 
+$is_paid = false;
+
+$statement = $pdo->prepare('SELECT * FROM tbl_applicationform where user_id = :user_id and payment = "paid"');
+$statement->bindValue(':user_id', $_SESSION["user_id"]);
+$statement->execute();
+$items2 = $statement->fetchAll(PDO::FETCH_ASSOC);
+$row = $statement->rowCount();
+
+if ($row > 0) {
+    $is_paid = true;
+}
+
 ?>
 
 
@@ -66,12 +78,12 @@ if ($row > 0) {
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">AEMPS</h3>
                 </a>
                 <div class="ms-4 mb-4" style="text-align:center">
                     <div class="position-relative" style="text-align:center">
-                        <img class="rounded-circle" src="../assets/img/logo.jpg" alt="" style="width: 200px; height: 200px;">
+                        <img class="rounded-circle" src="../assets/img/logo.png" alt="" style="width: 200px; height: 200px;">
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -256,6 +268,39 @@ if ($row > 0) {
                     </div>
                 </div>
                 <?php endif;?>
+            <?php elseif ($_SESSION["status"] == "active" && !$is_paid): ?>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Your Application is Approve but Need a Payment Verification</h6>
+                                <form method="POST" action="paymentverification.php" enctype="multipart/form-data">
+                                    <label for="">Select Preferred Schedule</label>
+                                    <select class="form-select form-select-sm mb-3" name="schedule" aria-label=".form-select-sm example">
+                                        <option selected value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                    <h6 class="mb-4">Upload Proof of Payment Here</h6>
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">Payment</label>
+                                        <input class="form-control" name="picture" type="file" accept="image/*" id="formFile">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php elseif ($_SESSION["status"] == "active" && $is_paid): ?>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                        <div class="col-md-6 text-center">
+                            <h3>Generate Your Registration Card Here</h3>
+                            <a class="btn btn-primary m-2 active" href="../pdf_generator.php?id=<?php echo $_SESSION["user_id"] ?>" >Generate</a>
+                        </div>
+                    </div>
+                </div>
             <?php endif;?>
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">

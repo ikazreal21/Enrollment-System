@@ -6,6 +6,7 @@ require_once '../database.php';
 
 $id = $_GET['id'] ?? null;
 $image = $_GET['image'] ?? null;
+$payment = $_GET['payment'] ?? null;
 
 if (!$id && !$image) {
     header('Location: index.php');
@@ -62,19 +63,21 @@ if (!$id && !$image) {
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">AEMPS</h3>
                 </a>
                 <div class="ms-4 mb-4 text-center">
                     <div class="position-relative" >
-                        <img class="rounded-circle rounded-circle mx-auto mb-4" src="../assets/img/logo.jpg" alt="" style="width: 200px; height: 200px;">
+                        <img class="rounded-circle rounded-circle mx-auto mb-4" src="../assets/img/logo.png" alt="" style="width: 200px; height: 200px;">
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Enrolee</a>
                     <a href="records.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Records</a>
                     <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Remarks</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students</a>
+                    <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
+
                 </div>
             </nav>
         </div>
@@ -106,7 +109,12 @@ if (!$id && !$image) {
             <!-- Navbar End -->
 
             <div class="container-fluid pt-4 px-4">
+                <?php if ($payment == "true"): ?>
+                    <a class="btn btn-primary m-2" href="payment_verification.php" >Back</a>
+                <?php else: ?>
                     <a class="btn btn-primary m-2" href="applicant_information.php?id=<?php echo $id ?>" >Back</a>
+                <?php endif;?>
+
                     <div class="row g-4">
                         <img src="<?php echo $image ?>" alt="">
                     </div>

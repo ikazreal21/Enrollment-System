@@ -70,9 +70,9 @@
             </div>
             <!-- Navbar End -->
 
-            <div class="container-fluid pt-4 px-4">
-                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
+            <div class="container-fluid pt-4 px-4 ">
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0 back-img">
+                    <div class="col-md-6 text-center ">
                         <h1 class="display-3 font-weight-bold text-primary">
                             "AEMPS High, Fly High!"
                         </h1>

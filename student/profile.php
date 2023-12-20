@@ -9,7 +9,6 @@ $statement->execute();
 $items = $statement->fetchAll(PDO::FETCH_ASSOC);
 $row = $statement->rowCount();
 
-
 ?>
 
 
@@ -61,12 +60,12 @@ $row = $statement->rowCount();
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">AEMPS</h3>
                 </a>
                 <div class="ms-4 mb-4" style="text-align:center">
                     <div class="position-relative" style="text-align:center">
-                        <img class="rounded-circle" src="../assets/img/logo.jpg" alt="" style="width: 200px; height: 200px;">
+                        <img class="rounded-circle" src="../assets/img/logo.png" alt="" style="width: 200px; height: 200px;">
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
