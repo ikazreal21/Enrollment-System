@@ -11,8 +11,10 @@ $statement->execute();
 $items = $statement->fetchAll(PDO::FETCH_ASSOC);
 $row = $statement->rowCount();
 
+
 if ($row > 0) {
     $is_fillup = true;
+    $_SESSION["status"] = $items[0]["status"];
 }
 
 $is_paid = false;
@@ -26,6 +28,8 @@ $row = $statement->rowCount();
 if ($row > 0) {
     $is_paid = true;
 }
+
+$_SESSION["is_paid"] = $is_paid;
 
 ?>
 
@@ -117,7 +121,7 @@ if ($row > 0) {
                             <span class="d-none d-lg-inline-flex"><?php echo ucfirst($_SESSION["username"]) ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <?php if ($_SESSION["status"] == "active"): ?>
+                            <?php if ($_SESSION["status"] == "approve"): ?>
                                 <a href="profile.php" class="dropdown-item" >My Profile</a>
                             <?php endif;?>
                             <a href="../logout.php" class="dropdown-item">Log Out</a>
@@ -126,7 +130,7 @@ if ($row > 0) {
                 </div>
             </nav>
             <!-- Navbar End -->
-            <?php if ($items[0]["status"] == "pending"): ?>
+            <?php if ($_SESSION["status"] == "pending"): ?>
                 <?php if (!$is_fillup): ?>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
@@ -135,8 +139,18 @@ if ($row > 0) {
                                 <h6 class="mb-4">Application Form</h6>
                                 <form method="POST" action="checking.php" enctype="multipart/form-data">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text">FullName:</span>
-                                        <input type="text" name="fullname" class="form-control" required>
+                                        <span class="input-group-text">First Name:</span>
+                                        <input type="text" name="firstname" class="form-control" required>
+
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Middle Initial:</span>
+                                        <input type="text" name="middleinitial" class="form-control" required>
+
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Last Name:</span>
+                                        <input type="text" name="lastname" class="form-control" required>
 
                                     </div>
                                     <div class="input-group mb-3">
@@ -248,7 +262,15 @@ if ($row > 0) {
                         </div>
                     </div>
                 </div>
+                <?php else: ?>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                        <div class="col-md-6 text-center">
+                            <h3>Your Application is Pending</h3>
+                        </div>
+                    </div>
                 <?php endif;?>
+
             <?php elseif ($items[0]["status"] == "decline"): ?>
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
@@ -260,7 +282,7 @@ if ($row > 0) {
                     </div>
                 </div>
             </div>
-            <?php elseif ($items[0]["status"] == "approve" && !$is_paid &&  !$items[0]["payment"] == "pending"): ?>
+            <?php elseif ($items[0]["status"] == "approve" && !$is_paid && $items[0]["payment"] == "pending"): ?>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-12">
@@ -277,7 +299,7 @@ if ($row > 0) {
                                         <label for="formFile" class="form-label">Payment</label>
                                         <input class="form-control" name="picture" type="file" accept="image/*" id="formFile">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure?')">Submit</button>
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                 </form>
                             </div>
@@ -297,6 +319,7 @@ if ($row > 0) {
                 <div class="container-fluid pt-4 px-4">
                     <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                         <div class="col-md-6 text-center">
+                            <h3><?php echo $is_paid ?></h3>
                             <h3>Your Payment Verification  is Pending</h3>
                         </div>
                     </div>

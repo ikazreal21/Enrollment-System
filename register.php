@@ -3,34 +3,45 @@ session_start();
 require_once 'database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($_POST['firstname'] != "" || $_POST['username'] != "" || $_POST['password'] != "") {
         try {
             $username = $_POST['username'];
             $password = $_POST['password'];
             $email = $_POST['email'];
             $usertype = 'student';
             $status = 'pending';
-            $statement = $pdo->prepare("INSERT INTO tbl_login (username, email, password, roles, status)
-            VALUES (:username, :email, :password, :roles, :status)"
-            );
 
-            $statement->bindValue(':username', $username);
-            $statement->bindValue(':email', $email);
-            $statement->bindValue(':password', $password);
-            $statement->bindValue(':roles', $usertype);
-            $statement->bindValue(':status', $status);
-            $statement->execute();
+
+            $query = "SELECT * FROM tbl_login  WHERE username = :username OR email = :email ";
+            $statement = $pdo->prepare($query);
+            $statement->execute(
+                array(
+                    'username' => $_POST["username"],
+                    'email' => $_POST["email"],
+                )
+            );
+            $count = $statement->rowCount();
+            $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if ($count > 0) {
+                echo "
+				<script>alert('Username or Email already exist!')</script>
+				<script>window.location = 'register.php'</script>
+			    ";
+            } else {
+                $statement = $pdo->prepare("INSERT INTO tbl_login (username, email, password, roles, status)
+                VALUES (:username, :email, :password, :roles, :status)"
+                );
+
+                $statement->bindValue(':username', $username);
+                $statement->bindValue(':email', $email);
+                $statement->bindValue(':password', $password);
+                $statement->bindValue(':roles', $usertype);
+                $statement->bindValue(':status', $status);
+                $statement->execute();
+                header('location:login.php');
+            }           
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-
-        header('location:login.php');
-    } else {
-        echo "
-				<script>alert('Please fill up the required field!')</script>
-				<script>window.location = 'registration.php'</script>
-			";
-    }
 }
 ?>
 
@@ -105,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                                <label class="form-check-label" for="exampleCheck1">Terms and Conditions</label>
+                                <label class="form-check-label" for="exampleCheck1">Agree to our <a href="termsandcond.html">Terms and Conditions</a></label>
                             </div>
                             <!-- <a href="">Forgot Password</a> -->
                         </div>

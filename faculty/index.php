@@ -76,7 +76,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students</a>
+                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List</a>
                 </div>
             </nav>
         </div>
@@ -116,7 +116,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row g-4">
                 <div class="col-12">
                             <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Students</h6>
+                                <h6 class="mb-4">Students List</h6>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>

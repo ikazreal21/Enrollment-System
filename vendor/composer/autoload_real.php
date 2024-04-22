@@ -29,9 +29,21 @@ class ComposerAutoloaderInitb74a24b7b7705487ea877cd4f0fd1741
         spl_autoload_unregister(array('ComposerAutoloaderInitb74a24b7b7705487ea877cd4f0fd1741', 'loadClassLoader'));
 
         require __DIR__ . '/autoload_static.php';
-        \Composer\Autoload\ComposerStaticInitb74a24b7b7705487ea877cd4f0fd1741::getInitializer($loader)();
+        call_user_func(\Composer\Autoload\ComposerStaticInitb74a24b7b7705487ea877cd4f0fd1741::getInitializer($loader));
 
         $loader->register(true);
+
+        $filesToLoad = \Composer\Autoload\ComposerStaticInitb74a24b7b7705487ea877cd4f0fd1741::$files;
+        $requireFile = \Closure::bind(static function ($fileIdentifier, $file) {
+            if (empty($GLOBALS['__composer_autoload_files'][$fileIdentifier])) {
+                $GLOBALS['__composer_autoload_files'][$fileIdentifier] = true;
+
+                require $file;
+            }
+        }, null, null);
+        foreach ($filesToLoad as $fileIdentifier => $file) {
+            $requireFile($fileIdentifier, $file);
+        }
 
         return $loader;
     }

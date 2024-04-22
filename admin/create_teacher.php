@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $pdo->lastInsertId();
 
         $statement = $pdo->prepare("INSERT INTO tbl_faculty (first_name, last_name, email, contactnum, user_id)
-                VALUES (:first_name, :last_name, :contactnum, :email, :user_id)"
+                VALUES (:first_name, :last_name, :email, :contactnum, :user_id)"
         );
 
         $statement->bindValue(':first_name', $first_name);
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Enrolee</a>
                     <a href="records.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Records</a>
                     <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Remarks</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List</a>
                     <a href="faculty.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
                 </div>
             </nav>

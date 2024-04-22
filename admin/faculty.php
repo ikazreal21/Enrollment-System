@@ -70,7 +70,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Enrolee</a>
                     <a href="records.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Records</a>
                     <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Remarks</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List</a>
                     <a href="faculty.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
                 </div>
             </nav>
@@ -121,6 +121,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                                 <th scope="col">First Name</th>
                                                 <th scope="col">Last Name</th>
                                                 <th scope="col">Email</th>
+                                                <th scope="col">Contact Number</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -130,6 +131,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo $item["first_name"] ?></td>
                                             <td><?php echo $item["last_name"] ?></td>
                                             <td><?php echo $item["email"] ?></td>
+                                            <td><?php echo $item["contactnum"] ?></td>
                                         </tr>
                                         <?php endforeach;?>
                                     </tbody>

@@ -12,7 +12,7 @@ if (!$id) {
 }
 
 
-$statement = $pdo->prepare("UPDATE tbl_applicationform set status = 'approve' WHERE application_id = :id");
+$statement = $pdo->prepare("UPDATE tbl_applicationform set status = 'approve', payment = 'pending' WHERE application_id = :id");
 $statement->bindValue(':id', $id);
 $statement->execute();
 

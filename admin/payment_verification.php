@@ -70,7 +70,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <a href="index.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Enrolee</a>
                     <a href="records.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Records</a>
                     <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Remarks</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List</a>
                     <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
                 </div>
             </nav>
@@ -115,7 +115,9 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <div class="testimonial-item text-center">
                                     <img class="img-fluid rounded-circle mx-auto mb-4" src="<?php echo $item["picture"] ?>" style="width: 100px; height: 100px;">
                                     <h5 class="mb-1"><?php echo $item["fullname"] ?></h5>
-                                    <a class="btn btn-primary m-2" href="payment_approve.php?id=<?php echo $row[0]["application_id"] ?>&user_id=<?php echo $row[0]["user_id"] ?>" >Approve</a>
+                                    <?php if ($item["payment_image"]): ?>
+                                    <a class="btn btn-primary m-2" href="payment_approve.php?id=<?php echo $row[0]["application_id"] ?>&user_id=<?php echo $row[0]["user_id"] ?>">Approve</a>
+                                    <?php endif;?>
                                     <a class="btn btn-secondary m-2" href="imageview.php?image=<?php echo $item["payment_image"] ?>&id=<?php echo $item["application_id"] ?>&payment=true" >View Payment</a>
                             </div>
                         </div>

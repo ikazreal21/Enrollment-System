@@ -15,6 +15,11 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
 $name = $row[0]["fullname"];
 $studentId = $row[0]["student_id"];
 $level = $row[0]["level"];
+if ($level == "N4") {
+    $date_terms = '6 Months';
+} else {
+    $date_terms = '3 Months';
+}
 if ($row[0]["schedule"] == "AM") {
     $schedule = "8AM-12NN";
 } else {
@@ -39,18 +44,20 @@ $pdf->SetKeywords('PDF, Student, Information');
 $pdf->AddPage();
 
 // Set font
-$pdf->SetFont('helvetica', '', 12);
+$pdf->SetFont('helvetica', '', 15);
 
 // Add your logo to the top right corner
-$pdf->Image($logoPath, 250, 10, 30, 30);
+$pdf->Image($logoPath, 250, 20, 30, 30);
 
 // Add content to the PDF
 $content = "
-    <h1><b><u>AEMPS</u></b></h1>
-    <h3>Student Information</h3>
+    <center><h1><b>AEMPS</b></h1></center>
+    <h3><u>Student Information</u></h3>
     <p><strong>Name:</strong> $name</p>
     <p><strong>Student ID:</strong> $studentId</p>
+    <hr>
     <p><strong>Level:</strong> $level</p>
+    <p><strong>Program Duration:</strong> $date_terms</p>
     <p><strong>Schedule:</strong> $schedule</p>
     <p><strong>Date Enrolled:</strong> $dateEnrolled</p>
 ";
@@ -58,4 +65,6 @@ $content = "
 $pdf->writeHTML($content, true, false, true, false, '');
 
 // Output the PDF as a file (you can also use 'I' to output it directly to the browser)
-$pdf->Output('student_information.pdf', 'D');
+$pdf->Output('student_information.pdf', 'I');
+
+?>

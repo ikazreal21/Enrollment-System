@@ -20,6 +20,9 @@ Configuration::instance([
 $errors = [];
 
 $fullname = '';
+$firstname = '';
+$lastname = '';
+$middleinitial = '';
 $username = '';
 $user_id = '';
 $age = 0;
@@ -48,7 +51,10 @@ $birthcert = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $fullname = ucwords($_POST['fullname']);
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $middleinitial = $_POST['middleinitial'];
+    $fullname = ucwords($firstname . ' ' . $middleinitial . ' ' . $lastname);
     $username = $_POST['username'];
     $user_id = $_POST['user_id'];
     $age = $_POST['age'];
