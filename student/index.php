@@ -241,7 +241,7 @@ if ($row > 0) {
                                         <label for="formFile" class="form-label">1 X 1 Formal Picture</label>
                                         <input class="form-control" name="picture" type="file" accept="image/*" id="formFile">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure?')" >Submit</button>
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                 </form>
                             </div>

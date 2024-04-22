@@ -28,6 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location:index.php");
 }
 
+header("Location:index.php")
+
+
 ?>
 
 
@@ -90,8 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="index.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Enrolee</a>
                     <a href="records.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Records</a>
                     <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Remarks</a>
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students</a>
-                    <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
+                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
                 </div>
             </nav>
         </div>

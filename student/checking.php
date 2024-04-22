@@ -4,7 +4,18 @@ session_start();
 
 require_once '../database.php';
 require_once '../randomstring.php';
+require_once '../vendor/autoload.php';
 
+use Cloudinary\Configuration\Configuration;
+use Cloudinary\Api\Upload\UploadApi;
+
+Configuration::instance([
+    'cloud' => [
+      'cloud_name' => 'dmagk9gck', 
+      'api_key' => '964986345641993', 
+      'api_secret' => 'sDSJ1IXtdVjMrMAkGxABuvS2wmo'],
+    'url' => [
+      'secure' => true]]);
 
 $errors = [];
 
@@ -75,24 +86,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagePath4 = '';
 
         if ($certification) {
-            $imagePath1 = '../upload/certification/'.randomString(8, 1).'/'.$certification['name'];
-            mkdir(dirname($imagePath1));
-            move_uploaded_file($certification['tmp_name'], $imagePath1);
+            // $imagePath1 = '../upload/certification/'.randomString(8, 1).'/'.$certification['name'];
+            // mkdir(dirname($imagePath1));
+            // move_uploaded_file($certification['tmp_name'], $imagePath1);
+            $imagePath1 = (new UploadApi())->upload($certification['tmp_name'], [
+                'folder' => 'uploads/enrollment/']);
+
         }
         if ($valid_id) {
-            $imagePath2 = '../upload/valid_id/'.randomString(8, 1).'/'.$valid_id['name'];
-            mkdir(dirname($imagePath2));
-            move_uploaded_file($valid_id['tmp_name'], $imagePath2);
+            // $imagePath2 = '../upload/valid_id/'.randomString(8, 1).'/'.$valid_id['name'];
+            // mkdir(dirname($imagePath2));
+            // move_uploaded_file($valid_id['tmp_name'], $imagePath2);
+            $imagePath2 = (new UploadApi())->upload($valid_id['tmp_name'], [
+                'folder' => 'uploads/enrollment/']);
+
         }
         if ($picture) {
-            $imagePath3 = '../upload/picture/'.randomString(8, 1).'/'.$picture['name'];
-            mkdir(dirname($imagePath3));
-            move_uploaded_file($picture['tmp_name'], $imagePath3);
+            // $imagePath3 = '../upload/picture/'.randomString(8, 1).'/'.$picture['name'];
+            // mkdir(dirname($imagePath3));
+            // move_uploaded_file($picture['tmp_name'], $imagePath3);
+            $imagePath3 = (new UploadApi())->upload($picture['tmp_name'], [
+                'folder' => 'uploads/enrollment/']);
+
         }
         if ($birthcert) {
-            $imagePath4 = '../upload/birthcert/'.randomString(8, 1).'/'.$birthcert['name'];
-            mkdir(dirname($imagePath4));
-            move_uploaded_file($birthcert['tmp_name'], $imagePath4);
+            // $imagePath4 = '../upload/birthcert/'.randomString(8, 1).'/'.$birthcert['name'];
+            // mkdir(dirname($imagePath4));
+            // move_uploaded_file($birthcert['tmp_name'], $imagePath4);
+            $imagePath4 = (new UploadApi())->upload($birthcert['tmp_name'], [
+                'folder' => 'uploads/enrollment/']);
+
         }
 
         $statement = $pdo->prepare("INSERT INTO tbl_applicationform (fullname, username, user_id, age, birthdate, occupation, email, contactnum, faname, faoccu, maname, maoccu, spaname, spaoccu, tertiary, tergraduate, secondary, secgraduate, elementary, elemgraduate, level, certification, valid_id, picture, birthcert, status)
@@ -120,10 +143,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindValue(':elementary', $elementary);
         $statement->bindValue(':elemgraduate', $elemgraduate);
         $statement->bindValue(':level', $level);
-        $statement->bindValue(':certification', $imagePath1);
-        $statement->bindValue(':valid_id', $imagePath2);
-        $statement->bindValue(':picture', $imagePath3);
-        $statement->bindValue(':birthcert', $imagePath4);
+        $statement->bindValue(':certification', $imagePath1['secure_url']);
+        $statement->bindValue(':valid_id', $imagePath2['secure_url']);
+        $statement->bindValue(':picture', $imagePath3['secure_url']);
+        $statement->bindValue(':birthcert', $imagePath4['secure_url']);
         $statement->bindValue(':status', "pending");
         $statement->execute();
         header('Location: index.php');

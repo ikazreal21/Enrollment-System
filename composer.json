@@ -1,5 +1,17 @@
 {
+    "name": "zaki/enrollment-system",
+    "autoload": {
+        "psr-4": {
+            "Zaki\\EnrollmentSystem\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "skip"
+        }
+    ],
     "require": {
+        "cloudinary/cloudinary_php": "^2.13",
         "tecnickcom/tcpdf": "^6.6"
     }
 }
