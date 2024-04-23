@@ -1,6 +1,7 @@
 {
     "require": {
         "cloudinary/cloudinary_php": "^2.13",
-        "tecnickcom/tcpdf": "^6.6"
+        "tecnickcom/tcpdf": "^6.6",
+        "ext-gd": "*"
     }
 }
