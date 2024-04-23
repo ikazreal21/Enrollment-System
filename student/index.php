@@ -95,7 +95,8 @@ $_SESSION["is_paid"] = $is_paid;
                         <a href="index.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Application</a>
                     <?php endif;?>
 
-                    <?php if ($_SESSION["status"] == "active"): ?>
+                    <?php if ($_SESSION["status"] == "approve"): ?>
+                        <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Dashboard</a>
                         <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Remarks</a>
                     <?php endif;?>
                 </div>
@@ -275,14 +276,14 @@ $_SESSION["is_paid"] = $is_paid;
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
-                        <h3>Your Application is Decline</h3>
+                        <h3>Your Application is On Hold</h3>
                         <h5>Remarks</h5>
                         <p><?php echo ucfirst($items[0]["comments"]) ?></p>
                         <a href="delete.php?id=<?php echo $items[0]["application_id"] ?>" class="btn btn-primary">Submit Another Form?</a>
                     </div>
                 </div>
             </div>
-            <?php elseif ($items[0]["status"] == "approve" && !$is_paid && $items[0]["payment"] == "pending"): ?>
+            <?php elseif ($items[0]["status"] == "approve" && !$is_paid && $items[0]["payment"] == "pending" && !$items[0]["payment_image"]): ?>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-12">

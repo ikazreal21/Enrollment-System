@@ -4,8 +4,17 @@ session_start();
 require_once '../database.php';
 // require_once 'validation.php';
 
-$statement = $pdo->prepare('SELECT * FROM tbl_applicationform where status = "pending" ');
-$statement->execute();
+$search1 = $_GET['search'] ?? '';
+
+if ($search1) {
+    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where fullname like :fullname and status = "approve" and payment = "paid" and level = "N4"');
+    $statement->bindValue(':fullname', "%$search1%");
+    $statement->execute();
+} else {
+    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where status = "approve" and payment = "paid" and level = "N4"');
+    $statement->execute();
+}
+
 $row = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -16,7 +25,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
     <meta charset="utf-8">
-    <title>AEMPS - Dashboard</title>
+    <title>AEMPS - Faculty Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -67,11 +76,8 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Enrolee</a>
-
-                    
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List</a>
-                    <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
+                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
+                    <a href="student_list_n4.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N4</a>
                 </div>
             </nav>
         </div>
@@ -88,6 +94,9 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
+                <form method="get" action class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" name="search" placeholder="Search Name">
+                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -95,32 +104,50 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <span class="d-none d-lg-inline-flex"><?php echo ucfirst($_SESSION["username"]) ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <?php if ($_SESSION["status"] == "active"): ?>
+                                <a href="profile.php" class="dropdown-item" >My Profile</a>
+                            <?php endif;?>
                             <a href="../logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
-            <a class="btn btn-primary m-2 active" href="index.php" >Application Approval</a>
-            <a class="btn btn-primary m-2" href="payment_verification.php" >Payment Verification</a>
-
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <?php foreach ($row as $i => $item): ?>
 
-                    <div class="col-sm-12 col-xl-12">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h5 class="mb-4">Application Form</h5>
-                            <h6 class="mb-4">Applicant#<?php echo $item["application_id"] ?></h6>
-                            <div class="testimonial-item text-center">
-                                    <img class="img-fluid rounded-circle mx-auto mb-4" src="<?php echo $item["picture"] ?>" style="width: 100px; height: 100px;">
-                                    <h5 class="mb-1"><?php echo $item["fullname"] ?></h5>
-                                    <a class="btn btn-primary m-2" href="applicant_information.php?id=<?php echo $item["application_id"] ?>" >View Information</a>
+                        <div class="col-12">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Students List</h6>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Student ID</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Occupation</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($row as $i => $item): ?>
+                                        <tr>
+                                            <th scope="row"><?php echo $item["student_id"] ?></th>
+                                            <td><?php echo $item["fullname"] ?></td>
+                                            <td><?php echo $item["email"] ?></td>
+                                            <td><?php echo $item["occupation"] ?></td>
+                                            <td><?php echo ucfirst($item["status"]) ?></td>
+                                            <td><a class="btn btn-primary m-2" href="remarks.php?id=<?php echo $item["application_id"] ?>" >View</a></td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
 
-                    <?php endforeach;?>
                 </div>
             </div>
 

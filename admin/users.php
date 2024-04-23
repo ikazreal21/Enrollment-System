@@ -77,8 +77,8 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Enrolee</a>
-                    <a href="records.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Records</a>
-                    <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Remarks</a>
+
+                    
                     <a href="users.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Students List</a>
                     <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
                 </div>
@@ -130,6 +130,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                                 <th scope="col">Occupation</th>
                                                 <th scope="col">Level</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">View</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -141,6 +142,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo $item["occupation"] ?></td>
                                             <td><?php echo $item["level"] ?></td>
                                             <td><?php echo ucfirst($item["status"]) ?></td>
+                                            <td><a class="btn btn-primary m-2" href="remarks.php?id=<?php echo $item["application_id"] ?>" >View</a></td>
                                         </tr>
                                         <?php endforeach;?>
                                     </tbody>

@@ -12,22 +12,40 @@ if (!$id) {
 }
 
 $comments = '';
+$is_compitent = false;
 
 $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where application_id = :application_id ');
 $statement->bindValue(':application_id', $id);
 $statement->execute();
 $row = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $comments = $_POST["comments"];
+$statement = $pdo->prepare('SELECT * FROM tbl_approvedstudent where application_id = :application_id');
+$statement->bindValue(':application_id', $id);
+$statement->execute();
+$row1 = $statement->fetchAll(PDO::FETCH_ASSOC);
+$items = $statement->rowCount();
 
-    $statement = $pdo->prepare("UPDATE tbl_applicationform set comments = :comments, status = 'decline' WHERE application_id = :id");
-    $statement->bindValue(':id', $id);
-    $statement->bindValue(':comments', $comments);
-    $statement->execute();
+if ($items > 0) {
+    $is_compitent = true;
 }
 
-header("Location:index.php")
+if ($row1[0]["competency"] == "true") {
+    $status = "Competent";
+} else {
+    $status = "Not Competent";
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $comments = $_POST["level"];
+
+    $statement = $pdo->prepare("UPDATE tbl_approvedstudent set competency = :competency WHERE application_id = :id");
+    $statement->bindValue(':id', $id);
+    $statement->bindValue(':competency', $comments);
+    $statement->execute();
+    header("Location:index.php");
+}
+
+
 
 ?>
 
@@ -88,10 +106,8 @@ header("Location:index.php")
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Enrolee</a>
-
-                    
-                    <a href="users.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List</a>
+                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
+                    <a href="student_list_n4.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N4</a>
                 </div>
             </nav>
         </div>
@@ -127,8 +143,37 @@ header("Location:index.php")
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-12">
                             <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Application Form</h6>
+                                <h6 class="mb-4">Student Information</h6>
                                 <form method="POST"  enctype="multipart/form-data">
+
+                                    <h3>Remarks</h3>
+                                    <!-- <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                            id="floatingTextarea" name="comments" style="height: 150px;" required></textarea>
+                                        <label for="floatingTextarea">Comments</label>
+                                    </div> -->
+                                    <?php if (!$row1[0]["competency"]): ?>
+                                        <div style="text-align: center; margin-bottom:1rem;">
+                                            <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="level" id="inlineRadio1"
+                                                value="true" onclick="myFunction()">
+                                            <label class="form-check-label" for="inlineRadio1">Compitent</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="level" id="inlineRadio2"
+                                                    value="false" onclick="myFunction()">
+                                                <label class="form-check-label" for="inlineRadio2">Not Compitent</label>
+                                            </div>
+                                        </div>
+                                    <div class="testimonial-item text-center">
+                                        <button type="sumbit" class="btn btn-secondary m-2">Save</button>
+                                    </div>
+                                    <?php else: ?>
+                                        <div style="text-align: center; margin-bottom:1rem;">
+                                            <h2><?php echo $status ?></h2>
+                                        </div>
+                                    <?php endif;?>
+                                    <hr>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">FullName:</span>
                                         <input type="text" value="<?php echo $row[0]["fullname"] ?>" class="form-control" disabled>
@@ -232,15 +277,7 @@ header("Location:index.php")
                                         <h5 class="mb-1"></h5>
                                         <a class="btn btn-primary m-2" href="imageview.php?image=<?php echo $row[0]["birthcert"] ?>&id=<?php echo $row[0]["application_id"] ?>" >View Birth Certificate</a>
                                     </div>
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a comment here"
-                                            id="floatingTextarea" name="comments" style="height: 150px;" required></textarea>
-                                        <label for="floatingTextarea">Comments</label>
-                                    </div>
-                                    <div class="testimonial-item text-center">
-                                        <a class="btn btn-primary m-2" href="approve.php?id=<?php echo $row[0]["application_id"] ?>&user_id=<?php echo $row[0]["user_id"] ?>" >Approve</a>
-                                        <button type="sumbit" class="btn btn-secondary m-2" href="reject.php?id=<?php echo $row[0]["application_id"] ?>" >Reject</button>
-                                    </div>
+                                    <hr>
                                 </form>
                             </div>
                         </div>

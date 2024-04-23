@@ -7,11 +7,11 @@ require_once '../database.php';
 $search1 = $_GET['search'] ?? '';
 
 if ($search1) {
-    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where fullname like :fullname and status = "approve" and payment = "paid"');
+    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where fullname like :fullname and status = "approve" and payment = "paid" and level = "N5"');
     $statement->bindValue(':fullname', "%$search1%");
     $statement->execute();
 } else {
-    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where status = "approve" and payment = "paid"');
+    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where status = "approve" and payment = "paid" and level = "N5"');
     $statement->execute();
 }
 
@@ -76,7 +76,8 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List</a>
+                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
+                    <a href="student_list_n4.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N4</a>
                 </div>
             </nav>
         </div>
@@ -114,19 +115,19 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
             <!-- Navbar End -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                <div class="col-12">
+
+                        <div class="col-12">
                             <div class="bg-light rounded h-100 p-4">
                                 <h6 class="mb-4">Students List</h6>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
+                                                <th scope="col">Student ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Occupation</th>
-                                                <th scope="col">Level</th>
-                                                <th scope="col">Schedule</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Status</th>
                                             </tr>
                                         </thead>
@@ -137,15 +138,16 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo $item["fullname"] ?></td>
                                             <td><?php echo $item["email"] ?></td>
                                             <td><?php echo $item["occupation"] ?></td>
-                                            <td><?php echo $item["level"] ?></td>
-                                            <td><?php echo $item["schedule"] ?></td>
                                             <td><?php echo ucfirst($item["status"]) ?></td>
+                                            <td><a class="btn btn-primary m-2" href="remarks.php?id=<?php echo $item["application_id"] ?>" >View</a></td>
                                         </tr>
                                         <?php endforeach;?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
+
                 </div>
             </div>
 

@@ -73,7 +73,8 @@ $row = $statement->rowCount();
                         <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Application</a>
                     <?php endif;?>
 
-                    <?php if ($_SESSION["status"] == "active"): ?>
+                    <?php if ($_SESSION["status"] == "approve"): ?>
+                        <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Dashboard</a>
                         <a href="remarks.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Remarks</a>
                     <?php endif;?>
                 </div>
@@ -99,7 +100,7 @@ $row = $statement->rowCount();
                             <span class="d-none d-lg-inline-flex"><?php echo ucfirst($_SESSION["username"]) ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <?php if ($_SESSION["status"] == "active"): ?>
+                            <?php if ($_SESSION["status"] == "approve"): ?>
                                 <a href="profile.php" class="dropdown-item" >My Profile</a>
                             <?php endif;?>
                             <a href="../logout.php" class="dropdown-item">Log Out</a>
