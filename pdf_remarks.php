@@ -81,6 +81,6 @@ $content = "
 $pdf->writeHTML($content, true, false, true, false, '');
 
 // Output the PDF as a file (you can also use 'I' to output it directly to the browser)
-$pdf->Output('student_information.pdf', 'I');
+$pdf->Output('student_information.pdf', 'D');
 
 ?>
