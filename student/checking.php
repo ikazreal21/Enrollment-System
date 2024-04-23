@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lastname = $_POST['lastname'];
     $middleinitial = $_POST['middleinitial'];
     $fullname = ucwords($firstname . ' ' . $middleinitial . ' ' . $lastname);
-    $username = $_POST['username'];
-    $user_id = $_POST['user_id'];
+    $username = $_SESSION['username'];
+    $user_id = $_SESSION['user_id'];
     $age = $_POST['age'];
     $birthdate = $_POST['birthdate'];
     $occupation = $_POST['occupation'];
@@ -97,6 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // move_uploaded_file($certification['tmp_name'], $imagePath1);
             $imagePath1 = (new UploadApi())->upload($certification['tmp_name'], [
                 'folder' => 'uploads/enrollment/']);
+        } else {
+            $imagePath1 = ['secure_url' => ''];
         }
         if ($valid_id) {
             // $imagePath2 = '../upload/valid_id/'.randomString(8, 1).'/'.$valid_id['name'];
