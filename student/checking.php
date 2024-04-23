@@ -77,9 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $level = $_POST['level'];
 
 
-    if (!is_dir('../upload/img')) {
-        mkdir('../inventory/img');
-    }
+    // if (!is_dir('../upload/img')) {
+    //     mkdir('../inventory/img');
+    // }
 
     if (empty($errors)) {
         $certification = $_FILES['certificate'];
@@ -91,13 +91,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagePath3 = '';
         $imagePath4 = '';
 
-        if ($certification) {
+        if ($level != "N5" && $certification) {
             // $imagePath1 = '../upload/certification/'.randomString(8, 1).'/'.$certification['name'];
             // mkdir(dirname($imagePath1));
             // move_uploaded_file($certification['tmp_name'], $imagePath1);
             $imagePath1 = (new UploadApi())->upload($certification['tmp_name'], [
                 'folder' => 'uploads/enrollment/']);
-
         }
         if ($valid_id) {
             // $imagePath2 = '../upload/valid_id/'.randomString(8, 1).'/'.$valid_id['name'];
