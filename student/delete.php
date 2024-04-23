@@ -11,6 +11,12 @@ if (!$id) {
 }
 
 
+// $statement = $pdo->prepare("UPDATE tbl_applicationform set status = 'approve', payment = 'pending' WHERE application_id = :id");
+// $statement->bindValue(':id', $id);
+// $statement->execute();
+$_SESSION["status"] = "pending";
+
+
 $statement = $pdo->prepare("DELETE FROM tbl_applicationform WHERE application_id = :id");
 $statement->bindValue(':id', $id);
 $statement->execute();
