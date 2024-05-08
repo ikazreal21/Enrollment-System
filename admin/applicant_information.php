@@ -236,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div class="form-floating">
                                         <textarea class="form-control" placeholder="Leave a comment here"
                                             id="floatingTextarea" name="comments" style="height: 150px;" required></textarea>
-                                        <label for="floatingTextarea">Comments</label>
+                                        <label for="floatingTextarea">Remarks</label>
                                     </div>
                                     <div class="testimonial-item text-center">
                                         <a class="btn btn-primary m-2" href="approve.php?id=<?php echo $row[0]["application_id"] ?>&user_id=<?php echo $row[0]["user_id"] ?>" >Approve</a>

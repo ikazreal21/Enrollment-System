@@ -7,11 +7,11 @@ require_once '../database.php';
 $search1 = $_GET['search'] ?? '';
 
 if ($search1) {
-    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where fullname like :fullname and status = "approve" and payment = "paid"');
+    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where fullname like :fullname and status = "approve" and payment = "paid" and level = "N4"');
     $statement->bindValue(':fullname', "%$search1%");
     $statement->execute();
 } else {
-    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where status = "approve" and payment = "paid"');
+    $statement = $pdo->prepare('SELECT * FROM tbl_applicationform where status = "approve" and payment = "paid" and level = "N4"');
     $statement->execute();
 }
 
@@ -25,7 +25,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
     <meta charset="utf-8">
-    <title>AEMPS - Dashboard</title>
+    <title>AEMPS - Faculty Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -76,12 +76,8 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Enrolee</a>
-
-                    
-                    <a href="users.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
+                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
                     <a href="student_list_n4.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N4</a>
-                    <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
                 </div>
             </nav>
         </div>
@@ -108,13 +104,15 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <span class="d-none d-lg-inline-flex"><?php echo ucfirst($_SESSION["username"]) ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <?php if ($_SESSION["status"] == "active"): ?>
+                                <a href="profile.php" class="dropdown-item" >My Profile</a>
+                            <?php endif;?>
                             <a href="../logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
-
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
 
@@ -129,9 +127,8 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Occupation</th>
-                                                <th scope="col">Level</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">View</th>
+                                                <th scope="col">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -141,7 +138,6 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo $item["fullname"] ?></td>
                                             <td><?php echo $item["email"] ?></td>
                                             <td><?php echo $item["occupation"] ?></td>
-                                            <td><?php echo $item["level"] ?></td>
                                             <td><?php echo ucfirst($item["status"]) ?></td>
                                             <td><a class="btn btn-primary m-2" href="remarks.php?id=<?php echo $item["application_id"] ?>" >View</a></td>
                                         </tr>

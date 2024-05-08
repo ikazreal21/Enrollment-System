@@ -16,6 +16,7 @@ $statement->bindValue(':application_id', $id);
 $statement->execute();
 $row1 = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+$date = date('Y-m-d');
 // Data to be included in the PDF
 $name = $row[0]["fullname"];
 $studentId = $row[0]["student_id"];
@@ -32,10 +33,12 @@ if ($row[0]["schedule"] == "AM") {
 }
 $dateEnrolled = date('M d, Y', strtotime($row[0]['date_enrolled']));
 
-if ($row1[0]["competency"] == "true") {
+if ($row1[0]["competency"] == "2") {
     $status = "Competent";
-} elseif ($row1[0]["competency"] == "false"){
-    $status = "Not Competent";
+} elseif ($row1[0]["competency"] == "1") {
+    $status = "Under Evaluation";
+} else {
+    $status = "Yet Competent";
 }
 
 // Path to your logo image file
@@ -75,8 +78,14 @@ $content = "
     <h3><u>Remarks:</u></h3>
     <p><strong>Level:</strong> $level</p>
     <p><strong>Program Duration:</strong> $date_terms </p>
-    <p><strong>Competency:</strong> $status</p>
 ";
+
+if ($status == "Under Evaluation") {
+    $content .= "<p><strong>Remarks:</strong> Student is Being Evaluated.</p>";
+}  else {
+    $content .= "<p><strong>Competency:</strong> $status</p>";
+    $content .= "<p><strong>Date Completed:</strong> $date</p>";
+}
 
 $pdf->writeHTML($content, true, false, true, false, '');
 

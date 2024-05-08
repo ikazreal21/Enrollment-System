@@ -145,7 +145,7 @@ $_SESSION["is_paid"] = $is_paid;
 
                                     </div>
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text">Middle Initial:</span>
+                                        <span class="input-group-text">Middle Name:</span>
                                         <input type="text" name="middleinitial" class="form-control" required>
 
                                     </div>
@@ -322,6 +322,16 @@ $_SESSION["is_paid"] = $is_paid;
                         <div class="col-md-6 text-center">
                             <h3><?php echo $is_paid ?></h3>
                             <h3>Your Payment Verification  is Pending</h3>
+                        </div>
+                    </div>
+                </div>
+            <?php elseif ($items[0]["payment"] == "decline" && !$is_paid): ?>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                        <div class="col-md-6 text-center">
+                            <h3><?php echo $is_paid ?></h3>
+                            <h3>Your Payment Decline</h3>
+                            <a href="payment_pending.php?id=<?php echo $items[0]["application_id"] ?>" class="btn btn-primary">Submit Another Payment?</a>
                         </div>
                     </div>
                 </div>

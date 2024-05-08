@@ -29,10 +29,12 @@ if ($items > 0) {
     $is_compitent = true;
 }
 
-if ($row1[0]["competency"] == "true") {
+if ($row1[0]["competency"] == "2") {
     $status = "Competent";
+} elseif ($row1[0]["competency"] == "1") {
+    $status = "Under Evaluation";
 } else {
-    $status = "Not Competent";
+    $status = "Yet Competent";
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -155,14 +157,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <?php if (!$row1[0]["competency"]): ?>
                                         <div style="text-align: center; margin-bottom:1rem;">
                                             <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="level" id="inlineRadio1"
-                                                value="true" onclick="myFunction()">
-                                            <label class="form-check-label" for="inlineRadio1">Compitent</label>
+                                                <input class="form-check-input" type="radio" name="level" id="inlineRadio1"
+                                                    value="1" onclick="myFunction()">
+                                                <label class="form-check-label" for="inlineRadio1">Under Evaluation</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="level" id="inlineRadio1"
+                                                    value="2" onclick="myFunction()">
+                                                <label class="form-check-label" for="inlineRadio1">Compitent</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="level" id="inlineRadio2"
-                                                    value="false" onclick="myFunction()">
-                                                <label class="form-check-label" for="inlineRadio2">Not Compitent</label>
+                                                    value="3" onclick="myFunction()">
+                                                <label class="form-check-label" for="inlineRadio3">Not Compitent</label>
                                             </div>
                                         </div>
                                     <div class="testimonial-item text-center">
@@ -238,6 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         // Get the checkbox
                                         var checkBox1 = document.getElementById("inlineRadio1");
                                         var checkBox2 = document.getElementById("inlineRadio2");
+                                        var checkBox2 = document.getElementById("inlineRadio3");
                                         // Get the output text
                                         var file = document.getElementById("file");
 
