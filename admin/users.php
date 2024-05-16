@@ -79,7 +79,7 @@ $row = $statement->fetchAll(PDO::FETCH_ASSOC);
                     <a href="index.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Enrolee</a>
 
                     
-                    <a href="users.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
+                    <a href="student_list_n5.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
                     <a href="student_list_n4.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N4</a>
                     <a href="faculty.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Faculty</a>
                 </div>

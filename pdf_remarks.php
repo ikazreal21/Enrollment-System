@@ -38,7 +38,7 @@ if ($row1[0]["competency"] == "2") {
 } elseif ($row1[0]["competency"] == "1") {
     $status = "Under Evaluation";
 } else {
-    $status = "Yet Competent";
+    $status = "Not Yet Competent";
 }
 
 // Path to your logo image file

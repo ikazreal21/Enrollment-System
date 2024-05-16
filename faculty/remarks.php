@@ -34,7 +34,7 @@ if ($row1[0]["competency"] == "2") {
 } elseif ($row1[0]["competency"] == "1") {
     $status = "Under Evaluation";
 } else {
-    $status = "Yet Competent";
+    $status = "Not Yet Competent";
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
+                    <a href="student_list_n5.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N5</a>
                     <a href="student_list_n4.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Students List - N4</a>
                 </div>
             </nav>
