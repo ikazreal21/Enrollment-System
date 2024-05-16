@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2023 at 12:20 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Apr 23, 2024 at 02:08 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,7 +61,38 @@ CREATE TABLE `tbl_applicationform` (
   `payment` varchar(255) DEFAULT NULL,
   `schedule` varchar(255) DEFAULT NULL,
   `date_enrolled` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_applicationform`
+--
+
+INSERT INTO `tbl_applicationform` (`application_id`, `student_id`, `fullname`, `username`, `user_id`, `age`, `birthdate`, `occupation`, `email`, `contactnum`, `faname`, `faoccu`, `maname`, `maoccu`, `spaname`, `spaoccu`, `tertiary`, `tergraduate`, `secondary`, `secgraduate`, `elementary`, `elemgraduate`, `level`, `certification`, `valid_id`, `picture`, `birthcert`, `status`, `comments`, `payment_image`, `payment`, `schedule`, `date_enrolled`) VALUES
+(7, 'IVQE2CV7', 'Joaquin Zaki Soriano', 'zaki', '8', 21, '2024-04-23', 'Developer', 'joaquinzaki21@gmail.com', '09695191665', 'Developer', 'Developer', 'Developer', 'Developer', 'Developer', 'Developer', 'Developer', '2001', 'Developer', '2002', 'Developer', '2003', 'N4', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713803582/uploads/enrollment/phpF23C_fqvmty.jpg', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713803585/uploads/enrollment/phpF24C_yjc0ox.jpg', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713803588/uploads/enrollment/phpF24E_p80iq9.jpg', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713803592/uploads/enrollment/phpF24D_nrbma9.jpg', 'approve', '', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713804100/uploads/enrollment/phpDB55_etrytv.jpg', 'paid', 'AM', '2024-04-22'),
+(8, 'Z7V7XJTA', 'Joaquin Zaki B. Soriano', 'zaki21', '10', 21, '2024-04-23', 'Developer', 'joaquinzaki21@gmail.com', '09695191665', 'Developer', 'Developer', 'Developer', 'Developer', 'Developer', 'Developer', 'Developer', '2001', 'Developer', '2003', 'Developer', '2002', 'N4', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713808132/uploads/enrollment/php6099_sp8z00.jpg', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713808135/uploads/enrollment/php609A_qok3xr.jpg', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713808138/uploads/enrollment/php60AB_fwxa6s.jpg', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713808141/uploads/enrollment/php609B_l4zlxz.jpg', 'approve', '', 'https://res.cloudinary.com/dmagk9gck/image/upload/v1713828161/uploads/enrollment/phpFAAF_d4enhb.jpg', 'paid', 'AM', '2024-04-23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_approvedstudent`
+--
+
+CREATE TABLE `tbl_approvedstudent` (
+  `id` int(255) NOT NULL,
+  `studentID` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `application_id` varchar(255) NOT NULL,
+  `competency` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_approvedstudent`
+--
+
+INSERT INTO `tbl_approvedstudent` (`id`, `studentID`, `user_id`, `status`, `application_id`, `competency`) VALUES
+(1, 'IVQE2CV7', '8', 'approve\r\n', '7', 'true'),
+(7, 'X8I7IHYG', '10', 'approve', '8', 'true');
 
 -- --------------------------------------------------------
 
@@ -76,14 +107,15 @@ CREATE TABLE `tbl_faculty` (
   `email` varchar(255) NOT NULL,
   `contactnum` varchar(255) NOT NULL,
   `user_id` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_faculty`
 --
 
 INSERT INTO `tbl_faculty` (`faculty_id`, `first_name`, `last_name`, `email`, `contactnum`, `user_id`) VALUES
-(2, 'Test', 'Test1', '09695191665', 'test@test.com', '7');
+(2, 'Test', 'Test1', '09695191665', 'test@test.com', '7'),
+(3, 'Joaquin Zaki', 'Soriano', 'joaquinzaki21@gmail.com', '09695191665', '9');
 
 -- --------------------------------------------------------
 
@@ -98,14 +130,18 @@ CREATE TABLE `tbl_login` (
   `password` varchar(255) NOT NULL,
   `roles` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_login`
 --
 
 INSERT INTO `tbl_login` (`user_id`, `username`, `email`, `password`, `roles`, `status`) VALUES
-(2, 'admin', 'admin@admin.com', 'adminadmin', 'admin', 'active');
+(2, 'admin', 'admin@admin.com', 'adminadmin', 'admin', 'active'),
+(8, 'zaki', 'joaquinzaki21@gmail.com', '2001210809', 'student', 'active'),
+(9, 'admin2', 'joaquinzaki21@gmail.com', 'adminadmin', 'teacher', 'active'),
+(10, 'zaki21', 'joaquinzaki21@gmail.com', '2001210809', 'student', 'active'),
+(11, 'admin3', 'zaki@gmail.com', 'adminadmin', 'student', 'pending');
 
 --
 -- Indexes for dumped tables
@@ -116,6 +152,12 @@ INSERT INTO `tbl_login` (`user_id`, `username`, `email`, `password`, `roles`, `s
 --
 ALTER TABLE `tbl_applicationform`
   ADD PRIMARY KEY (`application_id`);
+
+--
+-- Indexes for table `tbl_approvedstudent`
+--
+ALTER TABLE `tbl_approvedstudent`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_faculty`
@@ -137,19 +179,25 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT for table `tbl_applicationform`
 --
 ALTER TABLE `tbl_applicationform`
-  MODIFY `application_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `application_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tbl_approvedstudent`
+--
+ALTER TABLE `tbl_approvedstudent`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_faculty`
 --
 ALTER TABLE `tbl_faculty`
-  MODIFY `faculty_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `faculty_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
 --
 ALTER TABLE `tbl_login`
-  MODIFY `user_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
